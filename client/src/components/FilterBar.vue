@@ -102,54 +102,52 @@ export default {
 
 <style scoped>
 .filters-bar {
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-  padding: 0.75rem 0;
-  position: sticky;
-  top: 70px;
-  z-index: 90;
+  /* no sticky positioning, no background, no border */
 }
 
 .filters-container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 2rem;
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 .filters-grid {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .filter-group {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
 }
 
 .filter-group label {
   font-size: 0.75rem;
   font-weight: 600;
   color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   white-space: nowrap;
 }
 
 .filter-select {
+  width: 100%;
   padding: 0.4rem 0.75rem;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
-  font-size: 0.813rem;
+  font-size: 0.8125rem;
   color: #0f172a;
   background: white;
   cursor: pointer;
   transition: all 0.2s;
   font-weight: 500;
-  min-width: 140px;
 }
 
 .filter-select:hover {
@@ -173,7 +171,7 @@ export default {
   color: #64748b;
   cursor: pointer;
   transition: all 0.2s;
-  flex-shrink: 0;
+  margin-top: 0.25rem;
 }
 
 .reset-filters-btn:hover:not(:disabled) {
