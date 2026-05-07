@@ -1,39 +1,94 @@
 <template>
   <div class="app">
-    <header class="top-nav">
-      <div class="nav-container">
-        <div class="logo">
-          <h1>{{ t('nav.companyName') }}</h1>
-          <span class="subtitle">{{ t('nav.subtitle') }}</span>
+    <aside class="sidebar" :class="{ collapsed: sidebarCollapsed }">
+
+      <!-- Brand -->
+      <div class="sidebar-brand">
+        <div class="brand-mark">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="6" fill="#2563eb"/>
+            <path d="M7 14h14M14 7v14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </div>
-        <nav class="nav-tabs">
-          <router-link to="/" :class="{ active: $route.path === '/' }">
-            {{ t('nav.overview') }}
-          </router-link>
-          <router-link to="/inventory" :class="{ active: $route.path === '/inventory' }">
-            {{ t('nav.inventory') }}
-          </router-link>
-          <router-link to="/orders" :class="{ active: $route.path === '/orders' }">
-            {{ t('nav.orders') }}
-          </router-link>
-          <router-link to="/spending" :class="{ active: $route.path === '/spending' }">
-            {{ t('nav.finance') }}
-          </router-link>
-          <router-link to="/demand" :class="{ active: $route.path === '/demand' }">
-            {{ t('nav.demandForecast') }}
-          </router-link>
-          <router-link to="/reports" :class="{ active: $route.path === '/reports' }">
-            Reports
-          </router-link>
-        </nav>
-        <LanguageSwitcher />
+        <span class="brand-name" v-show="!sidebarCollapsed">{{ t('nav.companyName') }}</span>
+        <button class="collapse-btn" @click="sidebarCollapsed = !sidebarCollapsed" :title="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path
+              :d="sidebarCollapsed ? 'M6 3l5 5-5 5' : 'M10 3L5 8l5 5'"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Nav links -->
+      <nav class="sidebar-nav">
+        <router-link to="/">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="1.5" y="1.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="10.5" y="1.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="1.5" y="10.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="10.5" y="10.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span v-show="!sidebarCollapsed">{{ t('nav.overview') }}</span>
+        </router-link>
+        <router-link to="/inventory">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M2.25 5.25h13.5v10.5a1.5 1.5 0 01-1.5 1.5H3.75a1.5 1.5 0 01-1.5-1.5V5.25z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M1.5 2.25h15a.75.75 0 01.75.75v2.25H.75V3a.75.75 0 01.75-.75z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M7.5 9h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span v-show="!sidebarCollapsed">{{ t('nav.inventory') }}</span>
+        </router-link>
+        <router-link to="/orders">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M6 2.25h6a.75.75 0 01.75.75v.75H5.25V3A.75.75 0 016 2.25z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3.75 3.75H2.25A1.5 1.5 0 00.75 5.25v10.5A1.5 1.5 0 002.25 17.25h13.5A1.5 1.5 0 0017.25 15.75V5.25a1.5 1.5 0 00-1.5-1.5H14.25" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M5.25 9h7.5M5.25 12h5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span v-show="!sidebarCollapsed">{{ t('nav.orders') }}</span>
+        </router-link>
+        <router-link to="/spending">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="0.75" y="3.75" width="16.5" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="9" cy="9" r="2.25" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3.75 6.75v4.5M14.25 6.75v4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span v-show="!sidebarCollapsed">{{ t('nav.finance') }}</span>
+        </router-link>
+        <router-link to="/demand">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M1.5 13.5l4.5-4.5 3 3 5.25-6 2.25 2.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1.5 16.5h15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span v-show="!sidebarCollapsed">{{ t('nav.demandForecast') }}</span>
+        </router-link>
+        <router-link to="/reports">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M10.5 1.5H4.5A1.5 1.5 0 003 3v12a1.5 1.5 0 001.5 1.5h9A1.5 1.5 0 0015 15V6l-4.5-4.5z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10.5 1.5V6H15" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 12.75v-2.25M9 12.75V9M12 12.75v-1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span v-show="!sidebarCollapsed">Reports</span>
+        </router-link>
+      </nav>
+
+      <!-- Filters (hidden when collapsed) -->
+      <div class="sidebar-filters" v-show="!sidebarCollapsed">
+        <FilterBar />
+      </div>
+
+      <!-- Footer: language + profile -->
+      <div class="sidebar-footer">
+        <LanguageSwitcher v-show="!sidebarCollapsed" />
         <ProfileMenu
           @show-profile-details="showProfileDetails = true"
           @show-tasks="showTasks = true"
         />
       </div>
-    </header>
-    <FilterBar />
+
+    </aside>
+
     <main class="main-content">
       <router-view />
     </main>
@@ -55,7 +110,7 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { api } from './api'
 import { useAuth } from './composables/useAuth'
 import { useI18n } from './composables/useI18n'
@@ -80,6 +135,11 @@ export default {
     const showProfileDetails = ref(false)
     const showTasks = ref(false)
     const apiTasks = ref([])
+
+    const sidebarCollapsed = ref(
+      localStorage.getItem('sidebar-collapsed') === 'true'
+    )
+    watch(sidebarCollapsed, val => localStorage.setItem('sidebar-collapsed', String(val)))
 
     // Merge mock tasks from currentUser with API tasks
     const tasks = computed(() => {
@@ -150,6 +210,7 @@ export default {
 
     return {
       t,
+      sidebarCollapsed,
       showProfileDetails,
       showTasks,
       tasks,
@@ -178,100 +239,149 @@ body {
 
 .app {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   min-height: 100vh;
+  background: #f8fafc;
 }
 
-.top-nav {
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  height: 100vh;
   background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
   position: sticky;
   top: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  transition: width 0.2s ease;
   z-index: 100;
 }
 
-.nav-container {
-  max-width: 1600px;
-  margin: 0 auto;
+.sidebar.collapsed {
+  width: 56px;
+}
+
+.sidebar-brand {
   display: flex;
   align-items: center;
-  padding: 0 2rem;
-  height: 70px;
-}
-
-.nav-container > .nav-tabs {
-  margin-left: auto;
-  margin-right: 1rem;
-}
-
-.nav-container > .language-switcher {
-  margin-right: 1rem;
-}
-
-.logo {
-  display: flex;
-  align-items: baseline;
   gap: 0.75rem;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  min-height: 64px;
 }
 
-.logo h1 {
-  font-size: 1.375rem;
+.sidebar.collapsed .sidebar-brand {
+  justify-content: center;
+  padding: 1.25rem 0;
+}
+
+.brand-mark {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.brand-name {
+  font-size: 0.9375rem;
   font-weight: 700;
   color: #0f172a;
-  letter-spacing: -0.025em;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 1;
 }
 
-.subtitle {
-  font-size: 0.813rem;
-  color: #64748b;
-  font-weight: 400;
-  padding-left: 0.75rem;
-  border-left: 1px solid #e2e8f0;
-}
-
-.nav-tabs {
+.collapse-btn {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
   display: flex;
-  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+  margin-left: auto;
 }
 
-.nav-tabs a {
-  padding: 0.625rem 1.25rem;
+.collapse-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.sidebar.collapsed .collapse-btn {
+  margin-left: 0;
+}
+
+.sidebar-nav {
+  padding: 0.75rem 0.5rem;
+  flex: 0 0 auto;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 6px;
   color: #64748b;
   text-decoration: none;
+  font-size: 0.875rem;
   font-weight: 500;
-  font-size: 0.938rem;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  position: relative;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  margin-bottom: 2px;
 }
 
-.nav-tabs a:hover {
-  color: #0f172a;
+.sidebar-nav a:hover {
   background: #f1f5f9;
+  color: #0f172a;
 }
 
-.nav-tabs a.active {
-  color: #2563eb;
+.sidebar-nav a.router-link-active,
+.sidebar-nav a.active {
   background: #eff6ff;
+  color: #2563eb;
 }
 
-.nav-tabs a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #2563eb;
+.sidebar-nav a svg {
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed .sidebar-nav a {
+  justify-content: center;
+  padding: 0.625rem;
+  gap: 0;
+}
+
+.sidebar-filters {
+  padding: 0.75rem 0.5rem 0;
+  border-top: 1px solid #f1f5f9;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 0.75rem 0.5rem;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .main-content {
   flex: 1;
-  max-width: 1600px;
-  width: 100%;
-  margin: 0 auto;
+  min-width: 0;
   padding: 1.5rem 2rem;
+  overflow: auto;
 }
 
 .page-header {
